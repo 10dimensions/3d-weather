@@ -161,7 +161,11 @@ public class ToD_Base : MonoBehaviour
 
     /********** ----- GETTERS AND SETTERS ----- **********/
 
-    public float Get_fCurrentTimeOfDay { get { return _fCurrentTimeOfDay; } }
+    public float GetSet_fCurrentTimeOfDay 
+    { 
+        get { return _fCurrentTimeOfDay; }
+        set{ _fCurrentTimeOfDay = value; } 
+    }
     public float Get_fCurrentHour { get { return _fCurrentHour; } }
     public float Get_fCurrentMinute { get { return _fCurrentMinute; } }
     public int Get_iAmountOfDaysPlayed { get { return _iAmountOfDaysPlayed; } }

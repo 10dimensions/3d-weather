@@ -21,7 +21,7 @@ public class ToD_Clock : MonoBehaviour
 
 	void Update() 
     {
-        float fCurrentHour = 24 * clToDBase.Get_fCurrentTimeOfDay;
+        float fCurrentHour = 24 * clToDBase.GetSet_fCurrentTimeOfDay;
         float fCurrentMinute = 60 * (fCurrentHour - Mathf.Floor(fCurrentHour));
 
         tHourHand.localRotation = Quaternion.Euler(0, fCurrentHour * fHoursToDegrees, 0);
