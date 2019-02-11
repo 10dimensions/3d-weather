@@ -296,7 +296,7 @@ public class Weather_Controller : MonoBehaviour
         this.GetComponent<Weather_Snow>().GetSet_bUseInit = true;
     }
 
-    void ExitCurrentWeather(int NewWeatherType)
+    public void ExitCurrentWeather(int NewWeatherType)
     {
         if (en_CurrWeather == WeatherType.RANDOM)
         {
@@ -403,7 +403,7 @@ public class Weather_Controller : MonoBehaviour
         }
     }
 
-    private void EnterNewWeather(int NewWeather)
+    public void EnterNewWeather(int NewWeather)
     {
         if (NewWeather == (int)WeatherType.SUN)
             ChangeWeatherToSun();

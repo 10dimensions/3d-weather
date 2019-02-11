@@ -31,9 +31,9 @@ public class Singleton : MonoBehaviour
     public void CallOpenWeather()
     {
         string URL = _url + "lat=" + _lat.ToString() + "&lon=" + _lon.ToString() + "APPID=" + _appid;
-        //string URL = _url + "lat=23&lon=40&APPID=" + _appid;
+        //string URL = _url + "lat=13&lon=80&APPID=" + _appid;
 
-        StartCoroutine(OpenWeatherAPI(URL));
+        //StartCoroutine(OpenWeatherAPI(URL));
     }
 
    public IEnumerator OpenWeatherAPI(string url)
@@ -52,9 +52,10 @@ public class Singleton : MonoBehaviour
 
         else
         {
-            //Debug.Log("Received " + www.downloadHandler.text);
+            Debug.Log("Received " + www.downloadHandler.text);
             WeatherData = JsonUtility.FromJson<OpenWeatherData>(www.downloadHandler.text);
 
+            GameObject.FindWithTag("UI").GetComponent<UIManager>().DisplayOnSuccess();
             GameObject.FindWithTag("weatherman").GetComponent<DynamicWeather>().SetDayWeather();
         }
     }

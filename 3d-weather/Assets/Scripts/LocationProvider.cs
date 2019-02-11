@@ -9,10 +9,10 @@ public class LocationProvider : MonoBehaviour
     void Start()
     {
         UIRef = GameObject.FindWithTag("UI");
-        StartCoroutine(GetLocation());
+        //StartCoroutine(GetLocation());
     }
 
-    public IEnumerator GetLocation()
+        public IEnumerator GetLocation()
     {
         if (!Input.location.isEnabledByUser)
             {   
@@ -51,9 +51,9 @@ public class LocationProvider : MonoBehaviour
             Singleton._instance._lat = (Input.location.lastData.latitude); 
             Singleton._instance._lon = (Input.location.lastData.longitude);
 
-            //Singleton._instance.CallOpenWeather();
+            Singleton._instance.CallOpenWeather();
 
-            UIRef.GetComponent<UIManager>().DisplayOnSuccess();
+            //UIRef.GetComponent<UIManager>().DisplayOnSuccess();
         }
 
         Input.location.Stop();
