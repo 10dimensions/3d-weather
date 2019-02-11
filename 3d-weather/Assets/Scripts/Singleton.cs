@@ -24,16 +24,16 @@ public class Singleton : MonoBehaviour
 
         WeatherData = new OpenWeatherData();
 
-        CallOpenWeather();
+        //CallOpenWeather();
     }
 
 
     public void CallOpenWeather()
     {
-        string URL = _url + "lat=" + _lat.ToString() + "&lon=" + _lon.ToString() + "APPID=" + _appid;
+        string URL = _url + "lat=" + _lat.ToString() + "&lon=" + _lon.ToString() + "&APPID=" + _appid;
         //string URL = _url + "lat=13&lon=80&APPID=" + _appid;
 
-        //StartCoroutine(OpenWeatherAPI(URL));
+        StartCoroutine(OpenWeatherAPI(URL));
     }
 
    public IEnumerator OpenWeatherAPI(string url)

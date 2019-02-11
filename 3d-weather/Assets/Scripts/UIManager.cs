@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour
         WeatherType.text = Singleton._instance.WeatherData.weather[0].description.ToString();
 
 
-
+        FadeOutLocatePanel();
 
     }
 
@@ -102,6 +102,7 @@ public class UIManager : MonoBehaviour
 
     private void GetLocationFromGPS()
     {
+        LocationButton.interactable = false;
         StartCoroutine(GameObject.FindWithTag("locator").GetComponent<LocationProvider>().GetLocation());
     }
 

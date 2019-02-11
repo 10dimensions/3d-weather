@@ -18,6 +18,7 @@ public class LocationProvider : MonoBehaviour
             {   
                 Debug.Log("disabled");
                 UIRef.GetComponent<UIManager>().DisplayOnDisabled();
+            //Singleton._instance.CallOpenWeather();
                 yield break;
             }
 
