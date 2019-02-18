@@ -12,51 +12,51 @@ public class LocationProvider : MonoBehaviour
         //StartCoroutine(GetLocation());
     }
 
-        public IEnumerator GetLocation()
+        public IEnumerator GetLocationGPS()
     {
-        if (!Input.location.isEnabledByUser)
+            if (!Input.location.isEnabledByUser)
             {   
                 Debug.Log("disabled");
                 UIRef.GetComponent<UIManager>().DisplayOnDisabled();
-            //Singleton._instance.CallOpenWeather();
+                Singleton._instance.CallOpenWeatherGPS();
                 yield break;
             }
 
-       Input.location.Start();
+            Input.location.Start();
 
-       int maxWait = 20;
-        while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
-        {
-            yield return new WaitForSeconds(1);
-            maxWait--;
-            Debug.Log(maxWait);
-        }
+           int maxWait = 20;
+            while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
+            {
+                yield return new WaitForSeconds(1);
+                maxWait--;
+                Debug.Log(maxWait);
+            }
 
-        if (maxWait < 1)
-        {
-            print("Timed out");
-            UIRef.GetComponent<UIManager>().DisplayOnTimeOut();
-            yield break;
-        }
+            if (maxWait < 1)
+            {
+                print("Timed out");
+                UIRef.GetComponent<UIManager>().DisplayOnTimeOut();
+                yield break;
+            }
 
-        if (Input.location.status == LocationServiceStatus.Failed)
-        {
-            print("Unable to determine device location");
-            UIRef.GetComponent<UIManager>().DisplayOnFailure();
-            yield break;
-        }
+            if (Input.location.status == LocationServiceStatus.Failed)
+            {
+                print("Unable to determine device location");
+                UIRef.GetComponent<UIManager>().DisplayOnFailure();
+                yield break;
+            }
 
-        else
-        {
-            print("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp);
-            Singleton._instance._lat = (Input.location.lastData.latitude); 
-            Singleton._instance._lon = (Input.location.lastData.longitude);
+            else
+            {
+                print("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp);
+                Singleton._instance._lat = (Input.location.lastData.latitude); 
+                Singleton._instance._lon = (Input.location.lastData.longitude);
 
-            Singleton._instance.CallOpenWeather();
+                Singleton._instance.CallOpenWeatherGPS();
 
-            //UIRef.GetComponent<UIManager>().DisplayOnSuccess();
-        }
+                //UIRef.GetComponent<UIManager>().DisplayOnSuccess();
+            }
 
-        Input.location.Stop();
+            Input.location.Stop();
     }
 }

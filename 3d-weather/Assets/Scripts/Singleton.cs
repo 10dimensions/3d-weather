@@ -14,6 +14,8 @@ public class Singleton : MonoBehaviour
     public float _lat;
     public float _lon;
 
+    public string CityName;
+
     [SerializeField] public OpenWeatherData WeatherData;
 
 
@@ -28,36 +30,27 @@ public class Singleton : MonoBehaviour
     }
 
 
-    public void CallOpenWeather()
+    public void CallOpenWeatherGPS()
     {
         string URL = _url + "lat=" + _lat.ToString() + "&lon=" + _lon.ToString() + "&APPID=" + _appid;
         //string URL = _url + "lat=13&lon=80&APPID=" + _appid;
 
-        StartCoroutine(OpenWeatherAPI(URL));
+        //StartCoroutine(OpenWeatherAPI(URL));
+        StartCoroutine(OpenWeatherAPI.OpenWeatherAPIGPS(URL));
     }
 
-   public IEnumerator OpenWeatherAPI(string url)
+    public void CallOpenWeatherCity()
     {
+        string URL = _url + "q="+ CityName +"&APPID=" + _appid;
+        
+        StartCoroutine(OpenWeatherAPI.OpenWeatherAPICity(URL));
+        
+    }
 
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        www.SetRequestHeader("Cache-Control", "max-age=0, no-cache, no-store");
-        www.SetRequestHeader("Pragma", "no-cache");
-
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError)
-        {
-            Debug.Log(www.error);
-        }
-
-        else
-        {
-            Debug.Log("Received " + www.downloadHandler.text);
-            WeatherData = JsonUtility.FromJson<OpenWeatherData>(www.downloadHandler.text);
-
-            GameObject.FindWithTag("UI").GetComponent<UIManager>().DisplayOnSuccess();
-            GameObject.FindWithTag("weatherman").GetComponent<DynamicWeather>().SetDayWeather();
-        }
+    public void APICallSuccess()
+    {
+        GameObject.FindWithTag("UI").GetComponent<UIManager>().DisplayOnSuccess();
+        GameObject.FindWithTag("weatherman").GetComponent<DynamicWeather>().SetDayWeather();
     }
  
 }

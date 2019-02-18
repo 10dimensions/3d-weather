@@ -7,17 +7,24 @@ using System;
 
 public class UIManager : MonoBehaviour
 {   
+
+    //Location Panel
     [SerializeField] private Button LocationButton;
+    [SerializeField] private InputField LocationField;
+    [SerializeField] private GameObject LocatePanel;
+
+    //Data Panel
     [SerializeField] private Button DataBackButton;
-     [SerializeField] private Button DataButton; 
-     [SerializeField] private Button ExitButton; 
-     [SerializeField] private Button NoExitButton;
-      
+    [SerializeField] private Button DataButton; 
+    [SerializeField] private GameObject DataPanel;
 
-     [SerializeField] private GameObject LocatePanel;
-     [SerializeField] private GameObject DataPanel;
-     [SerializeField] private GameObject ExitPanel;
+    //Exit Panel
+    [SerializeField] private Button ExitButton;
+    [SerializeField] private Button NoExitButton;
+    [SerializeField] private GameObject ExitPanel;
 
+
+    // Weather Details
     [SerializeField] private Text LatitudeText;
     [SerializeField] private Text LongitudeText;
     [SerializeField] private Text LocationName;
@@ -31,9 +38,12 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Text ResponseText;
 
+
     void Start()
     {   
         LocationButton.onClick.AddListener(()=>GetLocationFromGPS());
+        LocationField.onEndEdit.AddListener(delegate{GetLocationFromCityName();});
+
         DataButton.onClick.AddListener(()=> DisplayPanel());
         DataBackButton.onClick.AddListener(()=>DisplayPanel());
 
@@ -76,7 +86,8 @@ public class UIManager : MonoBehaviour
 
     }
 
-     IEnumerator GetTexture(string img_type) {
+     IEnumerator GetTexture(string img_type) 
+     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://openweathermap.org/img/w/"+ img_type + ".png");
         yield return www.SendWebRequest();
 
@@ -103,7 +114,18 @@ public class UIManager : MonoBehaviour
     private void GetLocationFromGPS()
     {
         LocationButton.interactable = false;
-        StartCoroutine(GameObject.FindWithTag("locator").GetComponent<LocationProvider>().GetLocation());
+        StartCoroutine(GameObject.FindWithTag("locator").GetComponent<LocationProvider>().GetLocationGPS());
+    }
+
+    private void GetLocationFromCityName()
+    {
+        LocationButton.interactable = false;   
+        string _cityname = LocationField.GetComponent<InputField>().text;
+
+        Singleton._instance.CityName = _cityname;
+        Singleton._instance.CallOpenWeatherCity();
+
+        Debug.Log("method_called" + _cityname);
     }
 
     private void FadeOutLocatePanel()
@@ -131,7 +153,5 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
-
-
 
 }
