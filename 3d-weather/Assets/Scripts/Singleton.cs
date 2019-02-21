@@ -50,7 +50,9 @@ public class Singleton : MonoBehaviour
     public void APICallSuccess()
     {
         GameObject.FindWithTag("UI").GetComponent<UIManager>().DisplayOnSuccess();
-        GameObject.FindWithTag("weatherman").GetComponent<DynamicWeather>().SetDayWeather();
+        GameObject.FindWithTag("weatherman").GetComponent<WeatherManager>().SetDayWeather();
+
+        //GameObject.FindWithTag("weatherman").GetComponent<DynamicWeather>().SetDayWeather();
     }
  
 }

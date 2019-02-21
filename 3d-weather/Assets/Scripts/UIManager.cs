@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button LocationButton;
     [SerializeField] private InputField LocationField;
     [SerializeField] private GameObject LocatePanel;
+    [SerializeField] private Button LocatePanelButton;
 
     //Data Panel
     [SerializeField] private Button DataBackButton;
@@ -42,6 +43,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {   
         LocationButton.onClick.AddListener(()=>GetLocationFromGPS());
+        LocatePanelButton.onClick.AddListener(()=>FadeInLocatePanel());
         LocationField.onEndEdit.AddListener(delegate{GetLocationFromCityName();});
 
         DataButton.onClick.AddListener(()=> DisplayPanel());
@@ -125,12 +127,18 @@ public class UIManager : MonoBehaviour
         Singleton._instance.CityName = _cityname;
         Singleton._instance.CallOpenWeatherCity();
 
-        Debug.Log("method_called" + _cityname);
+        Debug.Log("method_called:" + _cityname);
     }
 
     private void FadeOutLocatePanel()
     {
         LocatePanel.SetActive(false);
+    }
+
+    private void FadeInLocatePanel()
+    {   
+        LocationButton.interactable = true;
+        LocatePanel.SetActive(true);
     }
      private void DisplayPanel()
     {

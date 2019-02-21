@@ -68,5 +68,4 @@ public class DynamicWeather : MonoBehaviour
         SNOW,*/
     }
 
-
 }
