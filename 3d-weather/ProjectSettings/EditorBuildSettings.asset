@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: a895318f0935320489b23b0581778bfe
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main_Weather.unity
     guid: 111205dbdd4854963a09b8bd32fc49d6
+  - enabled: 1
+    path: Assets/Scenes/Main_Weather_2.unity
+    guid: 6675d5eaf6a3940848a945b3ad1fb34f
   m_configObjects: {}
